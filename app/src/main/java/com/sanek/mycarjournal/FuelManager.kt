@@ -17,5 +17,6 @@ class FuelManager {
         } else {
             lastTenRecords.addLast(record)
         }
+        // update BD
     }
 }
