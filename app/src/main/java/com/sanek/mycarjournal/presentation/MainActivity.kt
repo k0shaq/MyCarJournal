@@ -30,28 +30,10 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        val myText: TextView = findViewById(R.id.textV)
-        findViewById<Button>(R.id.btn).setOnClickListener{
-            showInputDialog()
-        }
 
-        
 
-        lifecycleScope.launch(Dispatchers.IO) {
-          // --- Викликаємо suspend-функції всередині корутини
-          //  val newCar = CarEntity(0, 15, "2024-10-10", 15, "2020-09-01", 14)
-          // carDao.insertCar(newCar)
-          //  carDao.updateMileage(120)
-          // val currentDate: LocalDate = LocalDate.now()
-          //  val dateAsString: String = currentDate.toString()
-          // carDao.updateOilChangeDate(dateAsString)
-            val mileage = carDao.getLastOilChangeDate()
 
-            // --- Оновлюємо UI в головному потоці
-            launch(Dispatchers.Main) {
-                myText.text = mileage
-            }
-        }
+
     }
 
     private fun showInputDialog() {
@@ -78,6 +60,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun handleInputData(data: String) {
         // Обробка введених даних
-        findViewById<TextView>(R.id.textV).text = "Введено: $data"
+       // findViewById<TextView>(R.id.textV).text = "Введено: $data"
     }
 }

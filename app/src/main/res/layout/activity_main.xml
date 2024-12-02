@@ -2,32 +2,197 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#b9b5b4"
     tools:context=".presentation.MainActivity">
 
+    <!-- Модель авто -->
     <TextView
-        android:id="@+id/textV"
+        android:id="@+id/carModelTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="50dp"
+        android:fontFamily="@font/alexandria_extrabold"
+        android:text="Toyota Land Cruiser"
+        android:textColor="#000000"
+        android:textSize="26sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btn"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:text="DO"
-        app:layout_constraintBottom_toTopOf="@+id/textV"
+    <!-- Фото автомобіля (зменшена величина картинки) -->
+    <ImageView
+        android:id="@+id/carImageView"
+        android:layout_width="350dp"
+        android:layout_height="250dp"
+        android:contentDescription="Car Image"
+        android:src="@drawable/car_image"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/carModelTextView" />
 
+    <!-- Критерії та значення -->
+    <!-- Пробіг -->
+    <TextView
+        android:id="@+id/mileageTextViewLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Пробіг"
+        android:textSize="16sp"
+        android:textColor="#000000"
+        app:layout_constraintTop_toBottomOf="@id/carImageView"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"/>
 
+    <TextView
+        android:id="@+id/mileageTextViewValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="15,000 км"
+        android:textSize="20sp"
+        android:textColor="#000000"
+        app:layout_constraintTop_toBottomOf="@id/mileageTextViewLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="20dp"/>
 
+    <!-- Час до ТО -->
+    <TextView
+        android:id="@+id/timeToTIDateTextViewLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Час до ТО"
+        android:textSize="16sp"
+        android:textColor="#000000"
+        app:layout_constraintTop_toBottomOf="@id/mileageTextViewValue"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"/>
 
+    <TextView
+        android:id="@+id/timeToTIDateTextViewValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="6 місяців"
+        android:textSize="20sp"
+        android:textColor="#000000"
+        app:layout_constraintTop_toBottomOf="@id/timeToTIDateTextViewLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="20dp"/>
+
+    <!-- Час до заміни масла -->
+    <TextView
+        android:id="@+id/oilChangeTimeTextViewLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Час до заміни масла"
+        android:textSize="16sp"
+        android:textColor="#000000"
+        app:layout_constraintTop_toBottomOf="@id/timeToTIDateTextViewValue"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"/>
+
+    <TextView
+        android:id="@+id/oilChangeTimeTextViewValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3 місяці"
+        android:textSize="20sp"
+        android:textColor="#000000"
+        app:layout_constraintTop_toBottomOf="@id/oilChangeTimeTextViewLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="20dp"/>
+
+    <!-- Розхід пального -->
+    <TextView
+        android:id="@+id/fuelConsumptionTextViewLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Розхід пального"
+        android:textSize="16sp"
+        android:textColor="#000000"
+        app:layout_constraintTop_toBottomOf="@id/oilChangeTimeTextViewValue"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"/>
+
+    <TextView
+        android:id="@+id/fuelConsumptionTextViewValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="7.5 л/100 км"
+        android:textSize="20sp"
+        android:textColor="#000000"
+        app:layout_constraintTop_toBottomOf="@id/fuelConsumptionTextViewLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="20dp"/>
+
+    <!-- Нижні кнопки меню в ряд -->
+    <Button
+        android:id="@+id/tiCompletedButton"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:backgroundTint="#807d7d"
+        android:text="Технічний огляд пройдено"
+        android:textSize="11dp"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/oilChangeCompletedButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.25"
+        android:layout_margin="0dp"
+        android:layout_marginBottom="16dp"/>
+
+    <Button
+        android:id="@+id/oilChangeCompletedButton"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:layout_margin="0dp"
+        android:backgroundTint="#807d7d"
+        android:text="Масло замінено"
+        android:textColor="#000000"
+        android:textSize="11dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/changeFuelConsumptionButton"
+        app:layout_constraintStart_toEndOf="@id/tiCompletedButton"
+        app:layout_constraintWidth_percent="0.25"
+        tools:layout_editor_absoluteY="651dp" />
+
+    <Button
+        android:id="@+id/changeFuelConsumptionButton"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:layout_margin="0dp"
+        android:backgroundTint="#807d7d"
+        android:text="Оновити розхід пального"
+        android:textColor="#000000"
+        android:textSize="11dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/changeMileageButton"
+        app:layout_constraintStart_toEndOf="@id/oilChangeCompletedButton"
+        app:layout_constraintWidth_percent="0.25"
+        tools:layout_editor_absoluteY="651dp" />
+
+    <Button
+        android:id="@+id/changeMileageButton"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:layout_margin="0dp"
+        android:backgroundTint="#807d7d"
+        android:text="Оновити пробіг"
+        android:textColor="#000000"
+        android:textSize="11dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/changeFuelConsumptionButton"
+        app:layout_constraintWidth_percent="0.25"
+        tools:layout_editor_absoluteY="651dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
