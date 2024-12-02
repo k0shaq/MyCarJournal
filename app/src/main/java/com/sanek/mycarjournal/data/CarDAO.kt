@@ -1,6 +1,7 @@
 package com.sanek.mycarjournal.data
 
 import androidx.room.Dao
+import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 
@@ -8,36 +9,34 @@ import androidx.room.Update
 interface CarDAO {
 
     @Query("SELECT mileage FROM car LIMIT 1")
-    fun getMileage(): Int
+    suspend fun getMileage(): Int
 
     @Query("SELECT lastTechnicalInspectionDate FROM car LIMIT 1")
-    fun getLastTechnicalInspectionDate(): String
+    suspend fun getLastTechnicalInspectionDate(): String
 
     @Query("SELECT lastTechnicalInspectionMill FROM car LIMIT 1")
-    fun getLastTechnicalInspectionMill(): Int
+    suspend fun getLastTechnicalInspectionMill(): Int
 
     @Query("SELECT lastOilChangeDate FROM car LIMIT 1")
-    fun getLastOilChangeDate(): String
+    suspend fun getLastOilChangeDate(): String
 
     @Query("SELECT lastOilChangeMill FROM car LIMIT 1")
-    fun getLastOilChangeMill(): Int
+    suspend fun getLastOilChangeMill(): Int
 
-    @Query("UPDATE car SET mileage = :newMileage WHERE id = 0")
-    fun updateMileage(newMileage: Int)
+    @Query("UPDATE car SET mileage = :newMileage")
+    suspend fun updateMileage(newMileage: Int)
 
-    @Query("UPDATE car SET lastTechnicalInspectionDate = :newTechInspectDate WHERE id = 0")
-    fun updateTechnicalInspectionDate(newTechInspectDate: String)
+    @Query("UPDATE car SET lastTechnicalInspectionDate = :newTechInspectDate")
+    suspend fun updateTechnicalInspectionDate(newTechInspectDate: String)
 
-    @Query("UPDATE car SET lastTechnicalInspectionMill = :newTechInspectMill WHERE id = 0")
-    fun updateTechnicalInspectionMill(newTechInspectMill: Int)
+    @Query("UPDATE car SET lastTechnicalInspectionMill = :newTechInspectMill")
+    suspend fun updateTechnicalInspectionMill(newTechInspectMill: Int)
 
-    @Query("UPDATE car SET lastOilChangeDate = :newOilChangeDate WHERE id = 0")
-    fun updateOilChangeDate(newOilChangeDate: String)
+    @Query("UPDATE car SET lastOilChangeDate = :newOilChangeDate")
+    suspend fun updateOilChangeDate(newOilChangeDate: String)
 
-    @Query("UPDATE car SET lastOilChangeMill = :newOilChangeMill WHERE id = 0")
-    fun updateOilChangeMill(newOilChangeMill: Int)
+    @Query("UPDATE car SET lastOilChangeMill = :newOilChangeMill")
+    suspend fun updateOilChangeMill(newOilChangeMill: Int)
 
-    @Update
-    fun insertCar(car: CarEntity)
 }
 
