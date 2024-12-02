@@ -4,7 +4,7 @@ import java.time.LocalDate
 
 class GetNextTechnicalInspection(private val carRepository: CarRepository) {
 
-    fun getNextTechnicalInspection(): LocalDate {
+    fun getNextTechnicalInspection(): String {
         return carRepository.getNextTechnicalInspection()
     }
 }
