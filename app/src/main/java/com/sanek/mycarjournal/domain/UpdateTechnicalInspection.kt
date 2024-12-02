@@ -2,7 +2,7 @@ package com.sanek.mycarjournal.domain
 
 class UpdateTechnicalInspection(private val carRepository: CarRepository) {
 
-    fun updateTechnicalInspection() {
+    suspend fun updateTechnicalInspection() {
         carRepository.updateTechnicalInspection()
     }
 }

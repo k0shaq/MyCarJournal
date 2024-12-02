@@ -1,8 +1,12 @@
 package com.sanek.mycarjournal.presentation
 
 import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -27,6 +31,11 @@ class MainActivity : AppCompatActivity() {
 
 
         val myText: TextView = findViewById(R.id.textV)
+        findViewById<Button>(R.id.btn).setOnClickListener{
+            showInputDialog()
+        }
+
+        
 
         lifecycleScope.launch(Dispatchers.IO) {
           // --- Викликаємо suspend-функції всередині корутини
@@ -43,5 +52,32 @@ class MainActivity : AppCompatActivity() {
                 myText.text = mileage
             }
         }
+    }
+
+    private fun showInputDialog() {
+        // Створюємо EditText для введення даних
+        val input = EditText(this)
+        input.hint = "Введіть пробіг"
+
+        // Створюємо AlertDialog
+        AlertDialog.Builder(this)
+            .setTitle("Введення даних")
+            .setMessage("Будь ласка, введіть пробіг автомобіля:")
+            .setView(input) // Додаємо текстове поле в діалог
+            .setPositiveButton("Зберегти") { dialog, _ ->
+                val enteredData = input.text.toString()
+                // Логіка після натискання кнопки "Зберегти"
+                handleInputData(enteredData)
+                dialog.dismiss()
+            }
+            .setNegativeButton("Скасувати") { dialog, _ ->
+                dialog.cancel()
+            }
+            .show()
+    }
+
+    private fun handleInputData(data: String) {
+        // Обробка введених даних
+        findViewById<TextView>(R.id.textV).text = "Введено: $data"
     }
 }

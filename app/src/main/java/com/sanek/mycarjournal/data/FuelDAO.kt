@@ -7,11 +7,11 @@ import androidx.room.Query
 @Dao
 interface FuelDAO {
 
-    @Query("SELECT * FROM fuel ORDER BY id DESC LIMIT 10")
-    suspend fun getLastTenRecords(): List<FuelEntity>
+    @Query("SELECT AVG(consumption) FROM fuel")
+    suspend fun getAverageConsumption(): Float
 
     @Query("SELECT consumption FROM fuel ORDER BY id DESC LIMIT 1")
-    suspend fun getLastTRecord(): Float
+    suspend fun getLastRecord(): Float
 
 
     @Insert

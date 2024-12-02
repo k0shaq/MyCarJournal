@@ -3,11 +3,13 @@ package com.sanek.mycarjournal.domain
 import java.time.LocalDate
 
 interface CarRepository {
-    fun updateOilChange()
-    fun updateTechnicalInspection()
-    fun inputRecordFuelAverageConsumption(averageConsumption: Float)
-    fun setNewMileage(newMileage: Int)
-    fun getMileage(): Int
-    fun getNextTechnicalInspection(): String
-    fun getNextOilChange(): String
+    suspend fun updateOilChange()
+    suspend fun updateTechnicalInspection()
+    suspend fun inputRecordFuelAverageConsumption(averageConsumption: Float)
+    suspend fun setNewMileage(newMileage: Int)
+    suspend fun getMileage(): Int
+    suspend fun getNextTechnicalInspection(): String
+    suspend fun getNextOilChange(): String
+    suspend fun getLastRecordFuelAverageConsumption() : Float
+    suspend fun getAverageRecordFuelAverageConsumption() : Float
 }
