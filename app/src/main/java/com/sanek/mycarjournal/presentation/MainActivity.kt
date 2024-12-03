@@ -14,12 +14,24 @@ import com.sanek.mycarjournal.R
 import com.sanek.mycarjournal.data.CarEntity
 import com.sanek.mycarjournal.data.DatabaseProvider
 import androidx.lifecycle.lifecycleScope
+import com.sanek.mycarjournal.data.CarRepositoryImpl
+import com.sanek.mycarjournal.domain.GetAverageRecordFuelAverageConsumption
+import com.sanek.mycarjournal.domain.GetLastRecordFuelAverageConsumption
+import com.sanek.mycarjournal.domain.GetMileage
+import com.sanek.mycarjournal.domain.GetNextOilChange
+import com.sanek.mycarjournal.domain.GetNextTechnicalInspection
+import com.sanek.mycarjournal.domain.InputRecordFuelAverageConsumption
+import com.sanek.mycarjournal.domain.SetNewMileage
+import com.sanek.mycarjournal.domain.UpdateOilChange
+import com.sanek.mycarjournal.domain.UpdateTechnicalInspection
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var carFacade: CarFacade
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -27,11 +39,19 @@ class MainActivity : AppCompatActivity() {
 
         val db = DatabaseProvider.getDatabase(this)
         val carDao = db.carDao()
-
-
-
-
-
+        val fuelDao = db.fuelDao()
+        val carRepository = CarRepositoryImpl(carDao, fuelDao)
+        carFacade = CarFacade(
+            GetAverageRecordFuelAverageConsumption(carRepository),
+            GetLastRecordFuelAverageConsumption(carRepository),
+            GetMileage(carRepository),
+            GetNextOilChange(carRepository),
+            GetNextTechnicalInspection(carRepository),
+            InputRecordFuelAverageConsumption(carRepository),
+            SetNewMileage(carRepository),
+            UpdateOilChange(carRepository),
+            UpdateTechnicalInspection(carRepository)
+        )
 
 
     }
@@ -60,6 +80,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun handleInputData(data: String) {
         // Обробка введених даних
-       // findViewById<TextView>(R.id.textV).text = "Введено: $data"
+        // findViewById<TextView>(R.id.textV).text = "Введено: $data"
     }
 }
