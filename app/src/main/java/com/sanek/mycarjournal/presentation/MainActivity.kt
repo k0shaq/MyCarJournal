@@ -1,5 +1,6 @@
 package com.sanek.mycarjournal.presentation
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -8,12 +9,11 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.sanek.mycarjournal.R
 import com.sanek.mycarjournal.data.CarEntity
 import com.sanek.mycarjournal.data.DatabaseProvider
 import androidx.lifecycle.lifecycleScope
+import com.sanek.mycarjournal.logger.FileLogger
 import com.sanek.mycarjournal.data.CarRepositoryImpl
 import com.sanek.mycarjournal.data.FuelEntity
 import com.sanek.mycarjournal.domain.GetAverageRecordFuelAverageConsumption
@@ -25,10 +25,11 @@ import com.sanek.mycarjournal.domain.InputRecordFuelAverageConsumption
 import com.sanek.mycarjournal.domain.SetNewMileage
 import com.sanek.mycarjournal.domain.UpdateOilChange
 import com.sanek.mycarjournal.domain.UpdateTechnicalInspection
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
+import com.sanek.mycarjournal.logger.HistoryActivity
 import kotlinx.coroutines.launch
 import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 
 class MainActivity : AppCompatActivity() {
@@ -46,6 +47,7 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
+        FileLogger.init(applicationContext)
         val db = DatabaseProvider.getDatabase(this)
         val carDao = db.carDao()
         val fuelDao = db.fuelDao()
@@ -87,6 +89,12 @@ class MainActivity : AppCompatActivity() {
         val btnOC = findViewById<Button>(R.id.oilChangeCompletedButton)
         val btnConsumption = findViewById<Button>(R.id.changeFuelConsumptionButton)
         val btnMileage = findViewById<Button>(R.id.changeMileageButton)
+        val btnHistory = findViewById<Button>(R.id.historyButton)
+
+        btnHistory.setOnClickListener{
+            val intent = Intent(this, HistoryActivity::class.java)
+            startActivity(intent)
+        }
 
         btnTI.setOnClickListener{
             updateTI()
@@ -133,6 +141,7 @@ class MainActivity : AppCompatActivity() {
             techInspectTextView.text = dateTI
         }
         Toast.makeText(this, "Оновлено проведення технічного огляду", Toast.LENGTH_SHORT).show()
+        createLog("Проведено технічний огляд")
     }
 
     private fun updateOC(){
@@ -142,6 +151,7 @@ class MainActivity : AppCompatActivity() {
             oilChangeTextView.text = dateOC
         }
         Toast.makeText(this, "Оновлено заміну масла", Toast.LENGTH_SHORT).show()
+        createLog("Замінено масло")
     }
 
     fun updateMileage(){
@@ -151,6 +161,7 @@ class MainActivity : AppCompatActivity() {
                 if (mileageNow > newMileage) { Toast.makeText(this@MainActivity, "Новий пробіг має бути більшим за попередній", Toast.LENGTH_SHORT).show() }
                 else { carFacade.setNewMileage(newMileage)
                 mileageTextView.text = String.format("%,d", newMileage) + " км"
+                createLog("Оновлено пробіг: ${String.format("%,d", newMileage)} км")
                 newMileage = -1
                 val dateTI = carFacade.getNextTechnicalInspection()
                 val dateOC = carFacade.getNextOilChange()
@@ -172,6 +183,7 @@ class MainActivity : AppCompatActivity() {
                     "Розхід становить ${String.format("%.1f", newConsumption)} л / 100 км, що на ${String.format("%.1f",  averageCons - newConsumption)} л менше середнього"
                 else consumptionTextView.text =
                     "Розхід становить ${String.format("%.1f", newConsumption)} л / 100 км, що є рівним середньому значенню"
+                createLog("Оновлено розхід палива: ${String.format("%.1f", newConsumption)} л/100 км")
                 newConsumption = -1.0f
             }
         }
@@ -233,5 +245,11 @@ class MainActivity : AppCompatActivity() {
         } else {
             Toast.makeText(this, "Введіть коректне число", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun createLog(message: String){
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+        val formattedDateTime = LocalDateTime.now().format(formatter)
+        FileLogger.log("${formattedDateTime} | $message")
     }
 }
