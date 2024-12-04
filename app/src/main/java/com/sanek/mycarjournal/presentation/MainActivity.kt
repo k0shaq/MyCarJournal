@@ -125,11 +125,11 @@ class MainActivity : AppCompatActivity() {
             val lastRecord = carFacade.getLastRecordFuelAverageConsumption()
             val averageConsumption = carFacade.getAverageRecordFuelAverageConsumption()
             if (lastRecord > averageConsumption) consumptionTextView.text =
-                "Розхід становить ${String.format("%.1f", lastRecord)} л / 100 км, що на ${String.format("%.1f", lastRecord - averageConsumption)} л більше середнього"
+                "Розхід становить ${String.format("%.1f", lastRecord)} л / 100 км, \nщо на ${String.format("%.1f", lastRecord - averageConsumption)} л більше середнього"
             else if (lastRecord < averageConsumption) consumptionTextView.text =
-                "Розхід становить ${String.format("%.1f", lastRecord)} л / 100 км, що на ${String.format("%.1f",  averageConsumption - lastRecord)} л менше середнього"
+                "Розхід становить ${String.format("%.1f", lastRecord)} л / 100 км, \nщо на ${String.format("%.1f",  averageConsumption - lastRecord)} л менше середнього"
             else consumptionTextView.text =
-                "Розхід становить ${String.format("%.1f", lastRecord)} л / 100 км, що є рівним середньому значенню"
+                "Розхід становить ${String.format("%.1f", lastRecord)} л / 100 км, \nщо є рівним середньому значенню"
         }
 
     }
@@ -178,11 +178,11 @@ class MainActivity : AppCompatActivity() {
                 carFacade.inputRecordFuelAverageConsumption(newConsumption)
                 var averageCons = carFacade.getAverageRecordFuelAverageConsumption()
                 if (newConsumption > averageCons) consumptionTextView.text =
-                    "Розхід становить ${String.format("%.1f", newConsumption)} л / 100 км, що на ${String.format("%.1f", newConsumption - averageCons)} л більше середнього"
+                    "Розхід становить ${String.format("%.1f", newConsumption)} л / 100 км, \nщо на ${String.format("%.1f", newConsumption - averageCons)} л більше середнього"
                 else if (newConsumption < averageCons) consumptionTextView.text =
-                    "Розхід становить ${String.format("%.1f", newConsumption)} л / 100 км, що на ${String.format("%.1f",  averageCons - newConsumption)} л менше середнього"
+                    "Розхід становить ${String.format("%.1f", newConsumption)} л / 100 км, \nщо на ${String.format("%.1f",  averageCons - newConsumption)} л менше середнього"
                 else consumptionTextView.text =
-                    "Розхід становить ${String.format("%.1f", newConsumption)} л / 100 км, що є рівним середньому значенню"
+                    "Розхід становить ${String.format("%.1f", newConsumption)} л / 100 км, \nщо є рівним середньому значенню"
                 createLog("Оновлено розхід палива: ${String.format("%.1f", newConsumption)} л/100 км")
                 newConsumption = -1.0f
             }

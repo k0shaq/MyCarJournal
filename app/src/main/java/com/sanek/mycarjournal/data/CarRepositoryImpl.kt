@@ -47,7 +47,7 @@ class CarRepositoryImpl(private val carDao: CarDAO, private val fuelDao: FuelDAO
         val millToTI = (lastTIMill + 15000) - mileageNow
 
         return if (timeToTI <= 0 || millToTI <= 0) "Необхідно провести Т/О."
-        else "До Т/О залишилось $millToTI км або $timeToTI днів."
+        else "До Т/О залишилось $millToTI км \nабо $timeToTI дн."
     }
 
     override suspend fun getNextOilChange(): String {
@@ -65,7 +65,7 @@ class CarRepositoryImpl(private val carDao: CarDAO, private val fuelDao: FuelDAO
         val millToOC = (lastOCMill + 8000) - mileageNow
 
         return if (timeToOC <= 0 || millToOC <= 0) "Необхідно замінити масло."
-        else "До заміни масла залишилось $millToOC км або $timeToOC днів."
+        else "До заміни масла залишилось $millToOC км \nабо $timeToOC дн."
     }
 
     override suspend fun getLastRecordFuelAverageConsumption(): Float {
