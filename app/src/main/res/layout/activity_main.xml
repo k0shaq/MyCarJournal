@@ -32,7 +32,8 @@
         android:backgroundTint="#807d7d"
         app:layout_constraintStart_toEndOf="@id/carModelTextView"
         app:layout_constraintTop_toTopOf="@id/carModelTextView"
-        android:layout_marginLeft="20dp"/>
+        android:layout_marginLeft="20dp"
+        />
 
     <!-- Фото автомобіля (зменшена величина картинки) -->
     <ImageView
