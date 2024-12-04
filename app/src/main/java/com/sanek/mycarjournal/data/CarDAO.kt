@@ -38,5 +38,11 @@ interface CarDAO {
     @Query("UPDATE car SET lastOilChangeMill = :newOilChangeMill")
     suspend fun updateOilChangeMill(newOilChangeMill: Int)
 
+    @Query("SELECT Count(id) from car")
+    suspend fun getCountElements(): Int
+
+    @Insert
+    suspend fun insert(ce: CarEntity)
+
 }
 

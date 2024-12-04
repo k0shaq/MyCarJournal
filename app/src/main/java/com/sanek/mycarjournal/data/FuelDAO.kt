@@ -13,6 +13,8 @@ interface FuelDAO {
     @Query("SELECT consumption FROM fuel ORDER BY id DESC LIMIT 1")
     suspend fun getLastRecord(): Float
 
+    @Query("SELECT Count(id) from fuel")
+    suspend fun getCountElements(): Int
 
     @Insert
     suspend fun insertFuelRecord(fuelRecord: FuelEntity)
